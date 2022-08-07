@@ -1,0 +1,3 @@
+cp ./.env.example ./.env
+make: Leaving directory '/home/bobur/testing/testNorbekov'
+ 
