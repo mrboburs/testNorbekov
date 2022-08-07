@@ -11,13 +11,13 @@ import (
 type Configs struct {
 	ServiceHost string
 	HTTPPort    string
-
-	DBHost     string
-	DBPort     string
-	DBUsername string
-	DBName     string
-	DBPassword string
-	DBSSLMode  string
+	PhotoPath   string
+	DBHost      string
+	DBPort      string
+	DBUsername  string
+	DBName      string
+	DBPassword  string
+	DBSSLMode   string
 }
 
 func InitConfig() (cfg *Configs, err error) {
@@ -32,13 +32,13 @@ func InitConfig() (cfg *Configs, err error) {
 
 		ServiceHost: os.Getenv("DEPLOY"),
 		HTTPPort:    os.Getenv("PORT"),
-
-		DBHost:     os.Getenv("POSTGRES_HOST"),
-		DBPort:     os.Getenv("POSTGRES_PORT"),
-		DBUsername: os.Getenv("POSTGRES_USER"),
-		DBName:     os.Getenv("POSTGRES_DB"),
-		DBSSLMode:  os.Getenv("POSTGRES_SSLMODE"),
-		DBPassword: os.Getenv("POSTGRES_PASSWORD"),
+		PhotoPath:   os.Getenv("PHOTO_PATH"),
+		DBHost:      os.Getenv("POSTGRES_HOST"),
+		DBPort:      os.Getenv("POSTGRES_PORT"),
+		DBUsername:  os.Getenv("POSTGRES_USER"),
+		DBName:      os.Getenv("POSTGRES_DB"),
+		DBSSLMode:   os.Getenv("POSTGRES_SSLMODE"),
+		DBPassword:  os.Getenv("POSTGRES_PASSWORD"),
 	}
 	return
 }

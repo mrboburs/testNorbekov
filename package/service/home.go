@@ -33,10 +33,14 @@ func (s *HomeService) UpdateHome(id int, home model.HomePost, logrus *logrus.Log
 }
 
 func (service *HomeService) UploadImage(file multipart.File, header *multipart.FileHeader, logrus *logrus.Logger) (string, error) {
-
+	configs, err := configs.InitConfig()
+	logrus.Infof("configs %v", configs)
+	if err != nil {
+		logrus.Fatalf("error initializing configs: %s", err.Error())
+	}
 	filename := header.Filename
-	folderPath := "public/"
-	err := os.MkdirAll(folderPath, 0777)
+	folderPath := configs.PhotoPath
+	err = os.MkdirAll(folderPath, 0777)
 	if err != nil {
 		logrus.Errorf("ERROR: Failed to create folder %s: %v", folderPath, err)
 		return "", err
@@ -46,7 +50,7 @@ func (service *HomeService) UploadImage(file multipart.File, header *multipart.F
 		logrus.Errorf("ERROR: Failed Access Permission denied %s", err)
 		return "", err
 	}
-	filePath := folderPath + filename
+	filePath := folderPath + "/" + filename
 	out, err := os.Create(filePath)
 	if err != nil {
 		logrus.Errorf("ERROR: Failed CreateFile: %v", err)
@@ -59,11 +63,7 @@ func (service *HomeService) UploadImage(file multipart.File, header *multipart.F
 		logrus.Errorf("ERROR: Failed copy %s", err)
 		return "", err
 	}
-	configs, err := configs.InitConfig()
-	logrus.Infof("configs %v", configs)
-	if err != nil {
-		logrus.Fatalf("error initializing configs: %s", err.Error())
-	}
+
 	imageURL := configs.ServiceHost + "/" + filePath
 	return imageURL, nil
 }

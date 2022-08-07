@@ -40,7 +40,8 @@ func (handler *Handler) InitRoutes() *gin.Engine {
 	// docs.SwaggerInfo_swagger.Host = config.ServiceHost + config.HTTPPort
 	// docs.SwaggerInfo_swagger.Schemes = []string{ "https"}
 	router.Use(CORSMiddleware())
-	router.Static("/public", "./public/")
+	path := config.PhotoPath
+	router.Static("/public", path)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	admin := router.Group("/admin")
